@@ -11,7 +11,12 @@ namespace task2C_
     {
         static void Main(string[] args)
         {
+            ChekingAccount userChekingAccount = new ChekingAccount("1", "Roman", 1000, 0.15);
+            SavingsAccount userSavingAccount = new SavingsAccount("1", "Roman", 5000, 0.05);
 
+            userChekingAccount.ShowInfo();
+            Console.WriteLine();
+            userSavingAccount.ShowInfo();
         }
     }
 
@@ -19,9 +24,9 @@ namespace task2C_
     {
         public string AccountNumber { get; set; }
         public string OwnerNmae { get; set; }
-        public decimal Balance { get; set; }
+        public double Balance { get; set; }
 
-        public BankAccount(string accountNumber, string ownerNmae, decimal balance)
+        public BankAccount(string accountNumber, string ownerNmae, double balance)
         {
             AccountNumber = accountNumber;
             OwnerNmae = ownerNmae;
@@ -36,7 +41,7 @@ namespace task2C_
             }
         }
 
-        public void Deposit(decimal amount)
+        public void Deposit(double amount)
         {
             if (amount < 0)
             {
@@ -46,10 +51,10 @@ namespace task2C_
             Balance += amount;
         }
 
-        public virtual void Withdraw(decimal amount)
+        public virtual void Withdraw(double amount)
         {
 
-            decimal balanceInitial;
+            double balanceInitial;
             balanceInitial = Balance;
 
             if (Balance - amount < 0)
@@ -67,7 +72,7 @@ namespace task2C_
             Console.WriteLine(new string('-', 40));
             Console.WriteLine($"Здравствуйте, {OwnerNmae}.");
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine($"Информация о вашем счете:\nНомер вашего счета: {AccountNumber}\nВладелец: {OwnerNmae}\nБаланс: {Balance}рублей.");
+            Console.WriteLine($"Информация о вашем счете:\nНомер вашего счета: {AccountNumber}\nВладелец: {OwnerNmae}\nБаланс: {Balance} рублей.");
             Console.WriteLine(new string('-', 40));
         }
 
@@ -76,7 +81,7 @@ namespace task2C_
     class ChekingAccount : BankAccount
     {
         public double WithdrawalFee { get; set; }
-        public ChekingAccount(string accountNumber, string ownerNmae, decimal balance, double withdrawalFee) : base(accountNumber, ownerNmae, balance)
+        public ChekingAccount(string accountNumber, string ownerNmae, double balance, double withdrawalFee) : base(accountNumber, ownerNmae, balance)
         {
             AccountNumber = accountNumber;
             OwnerNmae = ownerNmae;
@@ -84,10 +89,43 @@ namespace task2C_
             WithdrawalFee = withdrawalFee;
         }
 
-        public override void Withdraw(decimal amount)
+        public override void Withdraw(double amount)
         {
             base.Withdraw(amount);
+            if (Balance - (amount * WithdrawalFee) < 0)
+            {
+                Balance = Balance;
+            }
+            else
+            {
+                Balance -= (amount + (amount * WithdrawalFee));
+            }
 
+        }
+    }
+
+    class SavingsAccount : BankAccount
+    {
+        public double IterestRate { get; set; }
+
+        public SavingsAccount(string accountNumber, string ownerNmae, double balance, double iterestRate) : base(accountNumber, ownerNmae, balance)
+        {
+            AccountNumber = accountNumber;
+            OwnerNmae = ownerNmae;
+            Balance = balance;
+            IterestRate = iterestRate;
+        }
+
+        public void AplyInterest()
+        {
+            if (Balance < 0)
+            {
+                Balance = 0;
+            }
+            else
+            {
+                Balance = (Balance * IterestRate);
+            }
         }
     }
 }
