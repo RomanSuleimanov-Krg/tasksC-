@@ -11,8 +11,21 @@ namespace task2C_
     {
         static void Main(string[] args)
         {
-            ChekingAccount userChekingAccount = new ChekingAccount("1", "Roman", 1000, 0.15);
+            ChekingAccount userChekingAccount = new ChekingAccount("1", "Roman", 1000, 0.015);
             SavingsAccount userSavingAccount = new SavingsAccount("1", "Roman", 5000, 0.05);
+
+            userChekingAccount.ShowInfo();
+            Console.WriteLine();
+            userSavingAccount.ShowInfo();
+
+            userChekingAccount.Deposit(150);
+            userChekingAccount.Withdraw(1000);
+
+            userChekingAccount.ShowInfo();
+            Console.WriteLine();
+            userSavingAccount.ShowInfo();
+
+            userSavingAccount.translationMainAccount(2500, userChekingAccount);
 
             userChekingAccount.ShowInfo();
             Console.WriteLine();
@@ -54,12 +67,9 @@ namespace task2C_
         public virtual void Withdraw(double amount)
         {
 
-            double balanceInitial;
-            balanceInitial = Balance;
-
             if (Balance - amount < 0)
             {
-                Balance = balanceInitial;
+                Balance = 0;
             }
             else
             {
@@ -94,11 +104,11 @@ namespace task2C_
             base.Withdraw(amount);
             if (Balance - (amount * WithdrawalFee) < 0)
             {
-                Balance = Balance;
+                Balance = 0;
             }
             else
             {
-                Balance -= (amount + (amount * WithdrawalFee));
+                Balance -= (amount * WithdrawalFee);
             }
 
         }
@@ -107,6 +117,7 @@ namespace task2C_
     class SavingsAccount : BankAccount
     {
         public double IterestRate { get; set; }
+        public ChekingAccount ChekingAccount { get; set; }
 
         public SavingsAccount(string accountNumber, string ownerNmae, double balance, double iterestRate) : base(accountNumber, ownerNmae, balance)
         {
@@ -127,5 +138,19 @@ namespace task2C_
                 Balance = (Balance * IterestRate);
             }
         }
+
+        public void translationMainAccount (double amount, ChekingAccount chekingAccount)
+        {
+            if (Balance < 0)
+            {
+                Console.WriteLine("Низя снимать, деняк нет (");
+            }
+            else
+            {
+                chekingAccount.Deposit(amount);
+                Balance -= amount;
+            }
+        }
+
     }
 }
