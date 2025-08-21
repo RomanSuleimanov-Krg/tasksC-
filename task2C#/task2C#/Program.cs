@@ -30,6 +30,15 @@ namespace task2C_
             userChekingAccount.ShowInfo();
             Console.WriteLine();
             userSavingAccount.ShowInfo();
+
+            userChekingAccount.translationSavingAccount(userSavingAccount, 2000);
+            userSavingAccount.AplyInterest();
+
+            userChekingAccount.ShowInfo();
+            Console.WriteLine();
+            userSavingAccount.ShowInfo();
+
+
         }
     }
 
@@ -38,6 +47,8 @@ namespace task2C_
         public string AccountNumber { get; set; }
         public string OwnerNmae { get; set; }
         public double Balance { get; set; }
+
+        public bool mayWithdraw { get; set; }
 
         public BankAccount(string accountNumber, string ownerNmae, double balance)
         {
@@ -65,15 +76,18 @@ namespace task2C_
         }
 
         public virtual void Withdraw(double amount)
-        {
-
+        { 
             if (Balance - amount < 0)
             {
-                Balance = 0;
+                mayWithdraw = false;
+                Balance = Balance;
+                Console.WriteLine($"Вы пытаетесь снять {amount} рублей. А у вас {Balance} на счету");
+                Console.WriteLine("Низя снять больше деняк чем имеется на балансе");
             }
             else
             {
                 Balance -= amount;
+                mayWithdraw = true;
             }
         }
 
@@ -95,22 +109,51 @@ namespace task2C_
         {
             AccountNumber = accountNumber;
             OwnerNmae = ownerNmae;
-            Balance = balance;
+            
+            if (balance < 0)
+            {
+                Balance = 0;
+                Console.WriteLine("Деняк на балансе не может быть меньше 0. Поэтому ваш баланс = 0");
+            }
+            else
+            {
+                {
+                    Balance = balance;
+                }
+            }
             WithdrawalFee = withdrawalFee;
         }
 
         public override void Withdraw(double amount)
         {
             base.Withdraw(amount);
-            if (Balance - (amount * WithdrawalFee) < 0)
-            {
-                Balance = 0;
-            }
-            else
+            if (Balance - (amount * WithdrawalFee) > 0 && mayWithdraw)
             {
                 Balance -= (amount * WithdrawalFee);
             }
+            else
+            {
+                Balance = Balance;
+            }
 
+        }
+
+        public void translationSavingAccount(SavingsAccount savingsAccount, double amount)
+        {
+            if (Balance - amount < 0)
+            {
+                Balance = Balance;
+                Console.WriteLine("Низя сделать перевод. Не хватит деняк (");
+            }
+            else if (savingsAccount.Balance + amount < 0)
+            {
+                Console.WriteLine("Так низя, сберегательный счет будет иметь минусовой баланс");
+            }
+            else
+            {
+                Balance -= amount;
+                savingsAccount.Balance += amount;
+            }
         }
     }
 
@@ -135,7 +178,7 @@ namespace task2C_
             }
             else
             {
-                Balance = (Balance * IterestRate);
+                Balance = (Balance+(Balance * IterestRate));
             }
         }
 
@@ -144,6 +187,11 @@ namespace task2C_
             if (Balance < 0)
             {
                 Console.WriteLine("Низя снимать, деняк нет (");
+            }
+            else if (Balance - amount < 0)
+            {
+                Balance = Balance;
+                Console.WriteLine($"Низя сделать перевод, у вас на балансе {Balance} рублей, а вы пытаетесь перевести {amount} рублей.");
             }
             else
             {
