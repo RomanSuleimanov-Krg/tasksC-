@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные с этой сборкой.
-[assembly: AssemblyTitle("task3C#")]
+[assembly: AssemblyTitle("taskC#3")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("task3C#")]
+[assembly: AssemblyProduct("taskC#3")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID представляет идентификатор typelib, если этот проект доступен из модели COM
-[assembly: Guid("f7e7fc29-090f-4aa9-b61a-9fbb960677f6")]
+[assembly: Guid("7db19af0-c028-42c2-b7e0-e937f21ff0f8")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //

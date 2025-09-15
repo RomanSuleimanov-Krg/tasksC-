@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F7E7FC29-090F-4AA9-B61A-9FBB960677F6}</ProjectGuid>
+    <ProjectGuid>{7DB19AF0-C028-42C2-B7E0-E937F21FF0F8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>task3C_</RootNamespace>
-    <AssemblyName>task3C#</AssemblyName>
+    <RootNamespace>taskC_3</RootNamespace>
+    <AssemblyName>taskC#3</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
